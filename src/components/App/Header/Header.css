@@ -1,0 +1,8 @@
+.header :global(.active) {
+    color: #bbb;
+    pointer-events: none;
+}
+
+.header :global(a) {
+    user-select: none;
+}

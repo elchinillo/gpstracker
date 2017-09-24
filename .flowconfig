@@ -1,0 +1,16 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/.*
+<PROJECT_ROOT>/webpack.*.config.js
+
+<PROJECT_ROOT>/src/client.js
+<PROJECT_ROOT>/src/sagas/.*
+<PROJECT_ROOT>/src/store.js
+<PROJECT_ROOT>/src/static/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]

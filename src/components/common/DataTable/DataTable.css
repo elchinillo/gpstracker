@@ -1,0 +1,17 @@
+.table {
+    user-select: none;
+}
+
+.table :global(.rt-tr) {
+    cursor: pointer;
+}
+
+.datetimeCol {
+    flex: 0 0 auto !important;
+    width: 15rem !important;
+}
+
+.typeCol {
+    flex: 0 0 auto !important;
+    width: 10rem !important;
+}
