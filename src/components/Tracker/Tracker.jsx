@@ -6,21 +6,21 @@ import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import type { TruckType } from '../../types/trucks';
+import type { TankTruckType } from '../../types/tankTrucks';
 
 import Page from '../App/Page';
 
 import styles from './Tracker.css';
 
-type TrucksObjectType = { [string]: TruckType };
+type TrucksObjectType = { [string]: TankTruckType };
 
 export type PropsType = {
     trucks: TrucksObjectType
 };
 
 export type ActionsType = {
-    subscribeToTrucksNotifications: (void) => void,
-    unsubscribeFromTrucksNotifications: (void) => void
+    subscribeToTankTrucksChannel: (void) => void,
+    unsubscribeFromTankTrucksChannel: (void) => void
 };
 
 type ComponentProps = ActionsType & PropsType;
@@ -52,7 +52,7 @@ class Tracker extends React.PureComponent {
             }
         ).addTo(this.map);
 
-        this.props.subscribeToTrucksNotifications();
+        this.props.subscribeToTankTrucksChannel();
     }
 
     componentWillReceiveProps(nextProps: PropsType) {
@@ -62,7 +62,7 @@ class Tracker extends React.PureComponent {
     }
 
     componentWillUnmount() {
-        this.props.unsubscribeFromTrucksNotifications();
+        this.props.unsubscribeFromTankTrucksChannel();
     }
 
     shouldComponentUpdate() {
@@ -89,10 +89,10 @@ class Tracker extends React.PureComponent {
 
             const location = [lat, lng];
 
-            if (truck.uuid in this.trucks) {
-                this.trucks[truck.uuid].setLatLng(location);
+            if (truck.id in this.trucks) {
+                this.trucks[truck.id].setLatLng(location);
             } else {
-                this.trucks[truck.uuid] = marker(location).addTo(this.map);
+                this.trucks[truck.id] = marker(location).addTo(this.map);
             }
         });
     }

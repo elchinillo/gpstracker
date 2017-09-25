@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchAlarms } from '../actions/alarms';
 import AlarmHistory from '../components/Alarms/AlarmHistory';
 import type { ActionsType, PropsType } from '../components/Alarms/AlarmHistory';
-import type { StateType } from '../types';
+import type { StateType } from '../types/ecirgas';
 
 const mapStateToProps: (StateType) => PropsType = (state: StateType) => ({
     history: state.alarms

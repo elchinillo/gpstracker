@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchServices } from '../actions/services';
 import ServiceHistory from '../components/Services/ServiceHistory';
 import type { ActionsType, PropsType } from '../components/Services/ServiceHistory';
-import type { StateType } from '../types';
+import type { StateType } from '../types/ecirgas';
 
 const mapStateToProps: (StateType) => PropsType = (state: StateType) => ({
     history: state.services

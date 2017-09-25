@@ -1,13 +1,28 @@
 // @flow
-import database from './common';
+import gql from 'graphql-tag';
 
-export function getServices(from: number = 0, to: number = 0): Promise<*> {
-    const now = new Date().getTime();
+import grapqhl from './graphql';
 
-    return database.child('/services')
-        .orderByChild('datetime')
-        .startAt(from)
-        .endAt(to || now)
-        .once('value').then(snapshot => snapshot.val())
-        .then(services => Object.keys(services || {}).reverse().map(key => services[key]));
+export const getServices = (): Promise<*> => {
+    const query = gql`query {
+        viewer {
+            allServices {
+                edges {
+                    node {
+                        createdAt
+                        description
+                        id
+                        shortDescription
+                        type
+                    }
+                }
+            }
+        }
+    }`;
+
+    const response = grapqhl(query);
+
+    return response
+        .then(response => response.data.viewer.allServices.edges)
+        .then(response => response.map(edge => edge.node));
 };

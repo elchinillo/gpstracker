@@ -1,9 +1,10 @@
 // @flow
 export type AlarmType = {
-    datetime: number,
+    createdAt: number,
     description: string,
     id: string,
-    type: 'danger' | 'warning';
+    shortDescription: string,
+    type: 'danger' | 'info' | 'warning';
 };
 
 export type AlarmsHistoryType = {

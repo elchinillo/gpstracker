@@ -1,5 +1,4 @@
 dist/
-flow-typed/
 node_modules/
 .DS_Store
 .firebaserc

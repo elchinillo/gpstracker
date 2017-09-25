@@ -14,6 +14,5 @@ const firebase = initializeApp(FIREBASE_CONFIG, 'ecirgas');
 
 const auth = firebase.database().app.auth();
 const currentUserUid = auth.currentUser ? auth.currentUser.uid : 'ecirgas';
-console.log(currentUserUid);
 
 export default firebase.database().ref(`/${currentUserUid}`);

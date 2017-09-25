@@ -1,20 +1,22 @@
 // @flow
 import { connect } from 'react-redux';
 
-import { subscribeToTrucksNotifications, unsubscribeFromTrucksNotifications } from '../actions/trucks';
+import {
+    subscribeToTankTrucksChannel, unsubscribeFromTankTrucksChannel
+} from '../actions/tankTrucks';
 import Tracker from '../components/Tracker';
 import type { PropsType } from '../components/Tracker';
-import type { StateType } from '../types';
+import type { StateType } from '../types/ecirgas';
 
 const mapStateToProps = (state: StateType): PropsType => {
     return {
-        trucks: state.trucks
+        trucks: state.tankTrucks
     }
 };
 
 const mapDispatchToProps = {
-    subscribeToTrucksNotifications,
-    unsubscribeFromTrucksNotifications
+    subscribeToTankTrucksChannel,
+    unsubscribeFromTankTrucksChannel
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tracker);

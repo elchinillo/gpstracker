@@ -1,9 +1,9 @@
 // @flow
 export type ServiceType = {
-    datetime: number,
+    createdAt: number,
     id: string,
-    notes: string,
-    type: 'danger' | 'warning'
+    description: string,
+    type: 'danger' | 'info' | 'warning'
 };
 
 export type ServicesHistoryType = {

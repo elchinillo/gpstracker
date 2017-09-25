@@ -7,7 +7,7 @@ type PropsType = {
     children: ReactNode,
     onClose?: (void) => void,
     title: ReactNode,
-    type: 'danger' | 'warning'
+    type: 'danger' | 'info' | 'warning'
 }
 
 class Modal extends React.PureComponent {

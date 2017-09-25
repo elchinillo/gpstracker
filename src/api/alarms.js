@@ -1,13 +1,28 @@
 // @flow
-import database from './common';
+import gql from 'graphql-tag';
 
-export function getAlarms(from: number = 0, to: number = 0): Promise<*> {
-    const now = new Date().getTime();
+import grapqhl from './graphql';
 
-    return database.child('/alarms')
-        .orderByChild('datetime')
-        .startAt(from)
-        .endAt(to || now)
-        .once('value').then(snapshot => snapshot.val())
-        .then(alarms => Object.keys(alarms || {}).map(key => alarms[key]).reverse());
+export const getAlarms = (): Promise<*> => {
+    const query = gql`query {
+        viewer {
+            allAlarms {
+                edges {
+                    node {
+                        createdAt
+                        description
+                        id
+                        shortDescription
+                        type
+                    }
+                }
+            }
+        }
+    }`;
+
+    const response = grapqhl(query);
+
+    return response
+        .then(response => response.data.viewer.allAlarms.edges)
+        .then(response => response.map(edge => edge.node));
 };

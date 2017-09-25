@@ -2,6 +2,8 @@
 import classnames from 'classnames';
 import React from 'react';
 import type { Node as ReactNode } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 import config from '../../config';
@@ -14,6 +16,7 @@ import FormattedDatetime from '../common/FormattedDatetime';
 import Page from '../App/Page';
 
 import Alarm from './Alarm';
+import AlarmTypeFilterDropdown from './AlarmTypeFilterDropdown';
 
 class AlarmDataTable extends DataTable<AlarmType> {}
 
@@ -21,6 +24,10 @@ const i18nMessages = defineMessages({
     dangerBadge: {
         defaultMessage: 'Peligro',
         id: 'alarms.type.danger'
+    },
+    infoBadge: {
+        defaultMessage: 'Informativa',
+        id: 'alarms.type.info'
     },
     warningBadge: {
         defaultMessage: 'Advertencia',
@@ -32,16 +39,22 @@ const badgeClassnames = (type: string) => classnames(
     'badge',
     {
         'badge-danger': type === 'danger',
+        'badge-info': type === 'info',
         'badge-warning': type === 'warning'
     }
 );
 
 const columns = [
     {
-        accessor: 'datetime',
+        accessor: 'createdAt',
         Cell: ({ value }) => <FormattedDatetime value={value} />,
         className: `text-center ${dataTableStyles.datetimeCol}`,
-        Header: () => <FormattedMessage defaultMessage="Fecha" id="alarms.date" />,
+        Filter: ({ filter = { value: null }, onChange }) => (
+            <DatePicker
+                onChange={onChange} isClearable={true} readOnly selected={filter.value} withPortal />
+        ),
+        filterMethod: ({ value }, row) => value===null || value.isSame(row.createdAt, 'day'),
+        Header: <FormattedMessage defaultMessage="Fecha" id="alarms.date" />,
         headerClassName: `text-center ${dataTableStyles.datetimeCol}`
     },
     {
@@ -52,12 +65,13 @@ const columns = [
             </span>
         ),
         className: `text-center ${dataTableStyles.typeCol}`,
-        Header: () => <FormattedMessage defaultMessage="Tipo" id="alarms.type" />,
+        Filter: ({ onChange }) => <AlarmTypeFilterDropdown onChange={onChange} />,
+        Header: <FormattedMessage defaultMessage="Tipo" id="alarms.type" />,
         headerClassName: `text-center ${dataTableStyles.typeCol}`
     },
     {
-        accessor: 'id',
-        Header: 'Numero'
+        accessor: 'shortDescription',
+        Header: <FormattedMessage defaultMessage="Descripción" id="alarms.shortDescription" />,
     }
 ];
 
@@ -90,7 +104,8 @@ class AlarmHistory extends React.PureComponent {
                         className: dataTableStyles.table,
                         columns,
                         data: history.items,
-                        defaultPageSize: config.dataChunks.pageSize
+                        defaultPageSize: config.dataChunks.pageSize,
+                        filterable: true
                     }}
                     renderModal={(alarm, onCloseModal) => <Alarm {...alarm} onClose={onCloseModal} />}
                  />

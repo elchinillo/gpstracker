@@ -17,13 +17,13 @@ class Service extends React.PureComponent {
     props: PropsType
 
     render() {
-        const { datetime, notes, type } = this.props;
+        const { createdAt, description, type } = this.props;
 
-        const title = <FormattedDatetime value={datetime} />;
+        const title = <FormattedDatetime value={createdAt} />;
 
         return (
             <Modal title={title} type={type} onClose={this.props.onClose}>
-                <p>{notes}</p>
+                <p>{description}</p>
             </Modal>
         );
     }
