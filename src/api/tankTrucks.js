@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 import grapqhl from './graphql';
 
-export const getTankTrucks = (): Promise<*> => {
+const getTankTrucks = (): Promise<*> => {
     const query = gql`query {
         viewer {
             allTankTrucks {
@@ -25,4 +25,15 @@ export const getTankTrucks = (): Promise<*> => {
     return response
         .then(response => response.data.viewer.allTankTrucks.edges)
         .then(response => response.map(edge => edge.node));
+};
+
+type EmitterFn = (msg: mixed) => void;
+type UnsubscribeFn = () => void;
+
+export const subscribe = (emitter: EmitterFn): UnsubscribeFn => {
+    getTankTrucks().then(tankTrucks => emitter(tankTrucks));
+
+    return () => {
+        console.warn('Missing unsubscriber');
+    };
 };

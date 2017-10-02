@@ -1,20 +1,31 @@
-import { call, delay, takeEvery, throttle } from 'redux-saga';
-import { put } from 'redux-saga/effects';
+import { eventChannel, takeEvery } from 'redux-saga';
+import { call, put, take } from 'redux-saga/effects';
 
 import { updateTankTrucks } from '../actions/tankTrucks';
-import { getTankTrucks } from '../api/tankTrucks';
+import { subscribe } from '../api/tankTrucks';
 
-let subscription = null;
+let channel = null;
 
 function* subscribeWorker() {
-    console.log('Subcribed');
-    console.warn('Subscription implementation is missing!');
-    const tankTrucks = yield getTankTrucks();
-    yield put(updateTankTrucks(tankTrucks));
+    if (channel) {
+        yield call(channel.close);
+    }
+
+    channel = yield call(() => eventChannel(subscribe));
+
+    try {
+        while (true) {
+            let tankTrucks = yield take(channel);
+
+            yield put(updateTankTrucks(tankTrucks));
+        }
+    } finally {
+        // We are done
+    }
 }
 
 function* unsubscribeWorker() {
-    console.log('Unsubcribed');
+    yield call(channel.close);
 }
 
 function* trucksSaga() {
