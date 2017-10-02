@@ -89,6 +89,6 @@ const apolloClient = new ApolloClient({
 //         socket.on('error', error => console.error);
 //     });
 
-const endpoint = query => apolloClient.query({ query });
+const endpoint = (query, options = {}) => apolloClient.query({ ...options, query });
 
 export default endpoint;

@@ -20,7 +20,7 @@ const getTankTrucks = (): Promise<*> => {
         }
     }`;
 
-    const response = grapqhl(query);
+    const response = grapqhl(query, { fetchPolicy: 'network-only' });
 
     return response
         .then(response => response.data.viewer.allTankTrucks.edges)
@@ -31,9 +31,12 @@ type EmitterFn = (msg: mixed) => void;
 type UnsubscribeFn = () => void;
 
 export const subscribe = (emitter: EmitterFn): UnsubscribeFn => {
-    getTankTrucks().then(tankTrucks => emitter(tankTrucks));
+    const interval = setInterval(
+        () => getTankTrucks().then(tankTrucks => emitter(tankTrucks)),
+        1000
+    );
 
     return () => {
-        console.warn('Missing unsubscriber');
+        clearInterval(interval);
     };
 };
