@@ -9,6 +9,7 @@ const PUBLIC_PATH = '/assets/';
 module.exports = {
     context: __dirname,
     entry: {
+        'csv-worker': './src/csv-worker.js',
         'ecirgas-client': './src/client.js'
     },
     module: {

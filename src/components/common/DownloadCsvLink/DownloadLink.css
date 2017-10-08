@@ -1,0 +1,4 @@
+.download {
+    composes: link from '../Link/Link.css';
+    float: right;
+}
