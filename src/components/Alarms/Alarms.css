@@ -1,0 +1,8 @@
+.download {
+    composes: link from '../common/Link/Link.css';
+    float: right;
+}
+
+.history {
+    clear: both;
+}

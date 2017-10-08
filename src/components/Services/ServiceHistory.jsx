@@ -14,9 +14,11 @@ import type { ServiceType, ServicesHistoryType } from '../../types/services';
 import DataTable from '../common/DataTable';
 import dataTableStyles from '../common/DataTable/DataTable.css';
 import FormattedDatetime from '../common/FormattedDatetime';
+import Link from '../common/Link';
 import Page from '../App/Page';
 
 import Service from './Service';
+import css from './Services.css';
 import ServiceTypeFilterDropdown from './ServiceTypeFilterDropdown';
 
 class ServiceDataTable extends DataTable<ServiceType> {}
@@ -25,6 +27,10 @@ const i18nMessages = defineMessages({
     dangerBadge: {
         defaultMessage: 'Peligro',
         id: 'services.type.danger'
+    },
+    servicesFilename: {
+        defaultMessage: 'services',
+        id: 'services.download.filename'
     },
     infoBadge: {
         defaultMessage: 'Informativo',
@@ -84,13 +90,52 @@ export type ActionsType = {
     fetchServices: (void) => {}
 };
 
-type ComponentPropsType = PropsType & ActionsType;
+type IntlPropType = {
+    intl: IntlFormat
+};
+
+type ComponentPropsType = PropsType & ActionsType & IntlPropType;
 
 class ServiceHistory extends React.PureComponent {
+    constructor(props: ComponentPropsType) {
+        super(props);
+
+        this.download = this.download.bind(this);
+    }
+
     props: ComponentPropsType
 
     componentDidMount() {
         this.props.fetchServices();
+    }
+
+    download: () => void
+    download() {
+        const { history, intl } = this.props;
+        const { items } = history;
+
+        const csvBlobBuilder = [];
+
+        let headers = null;
+        items.forEach((item) => {
+            if (headers === null) {
+                headers = Object.keys(item);
+                csvBlobBuilder.push(`${headers.join(',')}\n`);
+            }
+
+            csvBlobBuilder.push(`${headers.map(key => `"${item[key]}"`).join(',')}\n`);
+        });
+
+        const csvBlob = new Blob(csvBlobBuilder, { type: 'text/csv;charset=utf-8;' });
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(csvBlob);
+        link.setAttribute('download', `${intl.formatMessage(i18nMessages.servicesFilename)}.csv`);
+        link.click();
+    }
+
+    renderModal(service: ServiceType, onCloseModal: () => void) {
+        return <Service {...service} onClose={onCloseModal} />;
     }
 
     render() {
@@ -99,20 +144,27 @@ class ServiceHistory extends React.PureComponent {
         const title: ReactNode = <FormattedMessage defaultMessage="Servicios" id="services.title" />;
 
         return (
-            <Page className={dataTableStyles.table} title={title}>
+            <Page title={title}>
+                <FormattedMessage defaultMessage="Descargar" id="services.download">
+                    {nodes => (
+                        <Link className={css.download} href="#download-services" onClick={this.download}>
+                            <i className="fa fa-cloud-download" aria-hidden="true"></i> {nodes}
+                        </Link>
+                    )}
+                </FormattedMessage>
                 <ServiceDataTable
                     reactTableProps={{
-                        className: dataTableStyles.table,
+                        className: classnames(dataTableStyles.table, css.history),
                         columns,
                         data: history.items,
                         defaultPageSize: config.dataChunks.pageSize,
                         filterable: true,
                         loading: history.loading
                     }}
-                    renderModal={(service, onCloseModal) => <Service {...service} onClose={onCloseModal} />} />
+                    renderModal={this.renderModal} />
             </Page>
         );
     }
 }
 
-export default ServiceHistory;
+export default injectIntl(ServiceHistory);
