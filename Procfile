@@ -1,1 +1,1 @@
-web: yarn run-script build && yarn start
+web: yarn build && yarn start
