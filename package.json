@@ -16,5 +16,7 @@
         "postinstall": "yarn build",
         "start": "node dist/index.js"
     },
-    "engines.yarn": "0.21.3"
+    "engines": {
+        "yarn": "0.21.3"
+    }
 }
