@@ -59,7 +59,7 @@ module.exports = {
         ]
     },
     output: {
-        path: path.join(__dirname, '../../dist/assets/') ,
+        path: path.join(__dirname, '../dist/assets/') ,
         filename: '[name].js',
         publicPath: PUBLIC_PATH
     },
@@ -70,12 +70,12 @@ module.exports = {
                 {
                     context: path.join(__dirname, 'static/'),
                     from: 'index.html',
-                    to: path.join(__dirname, '../../dist/html/')
+                    to: path.join(__dirname, '../dist/html/')
                 },
                 {
                     context: path.join(__dirname, 'static/assets'),
                     from: '**',
-                    to: path.join(__dirname, '../../dist/assets/')
+                    to: path.join(__dirname, '../dist/assets/')
                 }
             ]
         ),

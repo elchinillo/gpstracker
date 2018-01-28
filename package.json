@@ -6,12 +6,12 @@
     "license": "MIT",
     "private": true,
     "dependencies": {
-        "ecirgas-client": "file:src/client/",
-        "ecirgas-server": "file:src/server/"
+        "ecirgas-client": "file:client/",
+        "ecirgas-server": "file:server/"
     },
     "scripts": {
-        "build-client": "cd src/client/ && yarn install && yarn build",
-        "build-server": "cd src/server/ && yarn install && yarn build",
+        "build-client": "cd client/ && yarn build",
+        "build-server": "cd server/ && yarn build",
         "build": "yarn build-server && yarn build-client",
         "postinstall": "yarn build",
         "start": "node dist/index.js"
