@@ -15,7 +15,7 @@
         "nodemon": "^1.14.11"
     },
     "scripts": {
-        "build": "yarn babel lib --out-dir ../dist --ignore assets/*",
+        "build": "babel lib --out-dir ../dist --ignore assets/*",
         "start": "nodemon lib/index.js --exec babel-node"
     }
 }
