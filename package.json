@@ -10,8 +10,8 @@
         "ecirgas-server": "file:src/server/"
     },
     "scripts": {
-        "build-client": "cd src/client/ && yarn build",
-        "build-server": "cd src/server/ && yarn build",
+        "build-client": "cd src/client/ && yarn install && yarn build",
+        "build-server": "cd src/server/ && yarn install && yarn build",
         "build": "yarn build-server && yarn build-client",
         "postinstall": "yarn build",
         "start": "node dist/index.js"
