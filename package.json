@@ -1,56 +1,9 @@
 {
-    "name": "ecir-gas-client",
-    "version": "0.0.1",
-    "description": "EcirGas UI",
-    "main": "index.js",
-    "author": "Diego Ortiz Huerta",
-    "license": "MIT",
-    "private": true,
-    "devDependencies": {
-        "babel-core": "^6.26.0",
-        "babel-loader": "^7.1.2",
-        "babel-plugin-transform-object-rest-spread": "^6.26.0",
-        "babel-plugin-transform-runtime": "^6.23.0",
-        "babel-preset-flow": "^6.23.0",
-        "babel-preset-react": "^6.24.1",
-        "copy-webpack-plugin": "^4.0.1",
-        "css-loader": "^0.28.7",
-        "extract-text-webpack-plugin": "^3.0.0",
-        "file-loader": "^0.11.2",
-        "firebase-tools": "^3.10.0",
-        "flow-bin": "0.52.0",
-        "flow-typed": "^2.1.5",
-        "flow-webpack-plugin": "^1.1.0",
-        "jest-cli": "^20.0.4",
-        "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
-        "uglifyjs-webpack-plugin": "1.0.0-beta.2",
-        "webpack": "^3.5.5",
-        "webpack-dev-server": "^2.7.1"
-    },
-    "scripts": {
-        "build": "webpack --progress",
-        "deploy": "firebase deploy",
-        "start": "webpack-dev-server --config webpack-dev.config.js --progress"
-    },
-    "dependencies": {
-        "apollo-client": "^1.9.3",
-        "apollo-link": "^0.5.4",
-        "babel-runtime": "^6.26.0",
-        "classnames": "^2.2.5",
-        "firebase": "^4.3.0",
-        "graphql-tag": "^2.4.2",
-        "leaflet": "^1.2.0",
-        "react": "^15.6.1",
-        "react-datepicker": "^0.55.0",
-        "react-dom": "^15.6.1",
-        "react-intl": "^2.3.0",
-        "react-redux": "^5.0.6",
-        "react-router-dom": "^4.2.2",
-        "react-table": "^6.5.3",
-        "redux": "^3.7.2",
-        "redux-logger": "^3.0.6",
-        "redux-saga": "^0.13.0",
-        "socket.io-client": "^2.0.3",
-        "subscriptions-transport-ws": "^0.9.0"
-    }
+  "name": "ecirgas",
+  "version": "1.0.0",
+  "repository": "https://github.com/elchinillo/gpstracker.git",
+  "author": "Diego Ortiz",
+  "scripts": {
+      "serve": "node dist/index.js"
+  },
 }
