@@ -1,20 +1,21 @@
 {
     "name": "ecirgas-server",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "lib/index.js",
     "repository": "https://github.com/elchinillo/gpstracker",
     "author": "Diego Ortiz",
     "license": "MIT",
+    "private": true,
     "dependencies": {
         "express": "^4.16.2"
-    },
-    "scripts": {
-        "build": "babel lib -d ../dist",
-        "start": "nodemon lib/index.js --exec babel-node"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "nodemon": "^1.14.11"
+    },
+    "scripts": {
+        "build": "babel lib --out-dir ../../dist --ignore assets/*",
+        "start": "nodemon lib/index.js --exec babel-node"
     }
 }

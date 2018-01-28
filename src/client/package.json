@@ -1,9 +1,9 @@
 {
-    "name": "ecir-gas-client",
+    "name": "ecirgas-client",
     "version": "0.0.1",
     "description": "EcirGas UI",
-    "main": "index.js",
-    "author": "Diego Ortiz Huerta",
+    "main": "client.js",
+    "author": "Diego Ortiz",
     "license": "MIT",
     "private": true,
     "devDependencies": {
@@ -29,7 +29,6 @@
     },
     "scripts": {
         "build": "webpack --progress",
-        "deploy": "firebase deploy",
         "start": "webpack-dev-server --config webpack-dev.config.js --progress"
     },
     "dependencies": {

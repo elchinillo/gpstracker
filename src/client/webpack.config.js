@@ -9,8 +9,8 @@ const PUBLIC_PATH = '/assets/';
 module.exports = {
     context: __dirname,
     entry: {
-        'csv-worker': './src/csv-worker.js',
-        'ecirgas-client': './src/client.js'
+        'csv-worker': './csv-worker.js',
+        'ecirgas-client': './client.js'
     },
     module: {
         rules: [
@@ -59,7 +59,7 @@ module.exports = {
         ]
     },
     output: {
-        path: path.join(__dirname, 'dist/assets/') ,
+        path: path.join(__dirname, '../../dist/assets/') ,
         filename: '[name].js',
         publicPath: PUBLIC_PATH
     },
@@ -68,9 +68,14 @@ module.exports = {
         new CopyWebpackPlugin(
             [
                 {
-                    context: path.join(__dirname, 'src/static'),
+                    context: path.join(__dirname, 'static/'),
                     from: 'index.html',
-                    to: path.join(__dirname, 'dist/')
+                    to: path.join(__dirname, '../../dist/html/')
+                },
+                {
+                    context: path.join(__dirname, 'static/assets'),
+                    from: '**',
+                    to: path.join(__dirname, '../../dist/assets/')
                 }
             ]
         ),
