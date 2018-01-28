@@ -13,9 +13,8 @@
         "build-client": "cd src/client/ && yarn build",
         "build-server": "cd src/server/ && yarn build",
         "build": "yarn build-server && yarn build-client",
+        "postinstall": "yarn build",
         "start": "node dist/index.js"
     },
-    "engines.yarn": {
-        "semver": "0.21.3"
-    }
+    "engines.yarn": "0.21.3"
 }
